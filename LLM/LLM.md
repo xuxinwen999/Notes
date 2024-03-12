@@ -1,5 +1,5 @@
 ## 数据处理
-#### 通用预料
+#### 通用语料
 数据质量提升至关重要，甚至在scalingl law的研究中，增加dataset size的前提是保证数据质量。
 1. crawled pages处理：提取url中的文本信息，丢弃其中无用的广告、标题、目录等，工具如trafilatura等
 2. 语言过滤：使用 tool(ex. fastText) 训练一个语言识别模型，过滤目标语言得分低于threshold的docs
@@ -24,6 +24,11 @@ Factors of model performance (cross-entropy loss) are currently considered as **
 训练框架：
 - DeepSpeed
 - Megatron-LM
+
+
+## Inference
+#### 参数说明
+- **temperature**: temperature相当于对logits进行scale: logits=logits/temperature。 当temperature较高时，会更平均地分配概率给各个token，这导致生成的文本更具随机性和多样性；temperature较低接近0时，会倾向于选择概率最高的token，从而使生成的文本更加确定和集中。注：temperature=1时表示不使用此方式。
 
 
 ## Emergent Ability

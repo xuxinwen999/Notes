@@ -10,6 +10,7 @@
 5. description / classification
 6. segmentation
 7. visual generation and editing
+8. Visual Grounding: aims to locate the most relevant object or region in an image, based on a natural language query.
 
 ### 训练路线
 1. M-IT: 使用多模态数据pairs对pretrainded models进行alignment pre-training, 也就是，freeze pretrained LLM&visual-encoder，然后训练一个learnable interface.
