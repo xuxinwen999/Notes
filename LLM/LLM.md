@@ -13,6 +13,28 @@
 #### 领域语料
 
 
+## Embedding Model
+#### Training
+- 模型结构：enc+dec、
+- 预训练：BERT pretraining paradigm
+- finetune: 
+    * 对比学习：构建高质量负样例、难负样例（虽然bce技术报告说太难的负样例会干扰模型训练），neg数量应多很多
+    * instruction following
+- 下游任务多样性：构建通用的embedding模型
+    * clustering, 
+    * Info Retrieve：
+        1. Dense: text -> vector, 取[cls], 计算向量相似度cos
+        2. Sparse: term -> vector, 每个term(token)取最后一个hidden state 对应位置的向量 * 映射矩阵M得到该term的权重向量vector，计算cos实现关键词级别的匹配检索
+        3. Multi-Vector：取整个序列的hidden state做计算，细节看bge-m3 report
+    * 
+- 语料：title-body, title-abstract, instruction-output
+
+
+## ReRanker
+bge-reranker的介绍是在pretrained的bert模型上做监督微调 (text-paris数据，label is binary that indicates the similarity of the pair)
+
+
+
 ## Training Tricks
 #### Scaling Law
 Factors of model performance (cross-entropy loss) are currently considered as **{model size (N), dataset size (D), amount of training compute}**. 已发表的scaling laws:
@@ -32,14 +54,16 @@ Factors of model performance (cross-entropy loss) are currently considered as **
 
 
 ## Emergent Ability
-" The abilities that
-are not present in small models but arise in large models ", 目前主要关注的通用大模型的涌现能力包括：
+" The abilities that are not present in small models but arise in large models ", 目前主要关注的通用大模型的涌现能力包括：
 1. In-context learning
 2. Instruction following
 3. Step-by-step reasoning
 
 
 ## 评估
+### Knowledge评估
+在测试LLM对pure knowledge的掌握时，测试形式为多选项选择题，应警惕"educated guesses"问题。
+
 predictable scaling (GPT-4)：
 
 ### Benchmark
@@ -71,3 +95,11 @@ CMMLU是一个综合性的中文评估基准，专门用于评估语言模型在
 
 ## LLM Application
 将LLM包装成一个工具作为solver，或是作为agent扮演controller的角色实施工具调用，是目前主要研究的两条路线。也有一些给工作在有限计算资源解决特定下游任务时，寻求两条路线的一个中间状态，将LLM结合一些plugin, 如调用calculator完成计算 (由于自然语言表述数学表达式的局限性，LLM在计算方面能力较为欠缺)、调用搜索引擎抓取up-to-date信息以生成更好的回答(预训练数据通常没有实时性)
+
+
+## Domain specific LLM
+- LLM掌握领域的factual knowledge应该包括以下能力：
+    * 记住facts
+    * 甄别基于facts的true/false statements
+    * Extend this definition to a whole knowledge base, not just a single fact.
+- continuing learning阶段应降低lr，以减小灾难遗忘
