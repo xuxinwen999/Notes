@@ -47,5 +47,25 @@ A Dockerfile is simply a text file named Dockerfile ***(without any extension)**
     ENTRYPOINT ["bash", "setup.sh"]
 
 
+## Docker Compose
+A Docker Compose YAML file defines services (containers), networks, volumes, and other configurations using a declarative syntax. Each service is configured with details like the Docker image to use, ports to expose, environment variables, volumes to mount, and dependencies.
+
+    ```yaml
+    version: '3.8'
+    services:
+        web:
+            image: nginx:latest
+            ports:
+            - "80:80"
+        db:
+            image: mysql:latest
+            environment:
+            MYSQL_ROOT_PASSWORD: example
+    
+
+
+***Docker-compose.yml vs. Dockerfile***: Dockerfile is used to define the instructions for building a Docker image, while Docker Compose YAML is used to define the configuration for running multiple Docker containers as a unified application.
+
+
 ## Docker image
 Docker image files are ***not stored in a human-readable format*** like text files. Instead, they are binary files that contain all the files, libraries, dependencies, and configurations needed to run a Docker container.When you build a Docker image using a Dockerfile, Docker takes the instructions in the Dockerfile and creates layers. ***Each layer represents a step*** in the image build process, such as installing packages, copying files, or running commands. These layers are combined to form the final Docker image.

@@ -30,10 +30,6 @@
 - 语料：title-body, title-abstract, instruction-output
 
 
-## ReRanker
-bge-reranker的介绍是在pretrained的bert模型上做监督微调 (text-paris数据，label is binary that indicates the similarity of the pair)
-
-
 
 ## Training Tricks
 #### Scaling Law
@@ -92,9 +88,6 @@ CMMLU是一个综合性的中文评估基准，专门用于评估语言模型在
 
 **值得注意的实验结论**：小参数模型（6/7B）在学习领域知识的时候，会牺牲通用能力，we must do a trade-off
 
-
-## LLM Application
-将LLM包装成一个工具作为solver，或是作为agent扮演controller的角色实施工具调用，是目前主要研究的两条路线。也有一些给工作在有限计算资源解决特定下游任务时，寻求两条路线的一个中间状态，将LLM结合一些plugin, 如调用calculator完成计算 (由于自然语言表述数学表达式的局限性，LLM在计算方面能力较为欠缺)、调用搜索引擎抓取up-to-date信息以生成更好的回答(预训练数据通常没有实时性)
 
 
 ## Domain specific LLM
