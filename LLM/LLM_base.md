@@ -30,6 +30,27 @@
 - 语料：title-body, title-abstract, instruction-output
 
 
+## GPU requirements analysis
+模型参数量单位B和显存单位GB之间存在的联系：1 GB = 1 B bytes, 而相关参数存储类型fp32 (4 bytes) / fp16 (2bytes)。<br>
+分析显存占用主要从以下方面：
+- Parameters：主要看参数数据类型，参考上述方式计算；(inference)
+- Activations: 与batch_size和seq_length相关；(inference)
+- Gradients: same with parameters;
+- Optimizer States: 
+- KV Cache: 2 × dim × Layers × Batch_Size × Sequence_Length × sizeof(float)
+- Communication Buffers (Model Parallelism)
+- Pipeline Buffers (Pipeline Parallelism)
+
+## Parallel Training
+#### 并行策略
+- Data Parallelism：each GPU holds a copy of the entire model and processes different batches of data.
+- Model Parallelism： different parts of the model are distributed across multiple GPUs. This requires ***efficient communication*** between GPUs.
+- Pipeline Parallelism: dividing the model into stages, with each stage assigned to a different GPU. This also requires managing activations between stages.
+
+####训练框架：
+- DeepSpeed
+- Megatron-LM
+
 
 ## Training Tricks
 #### Scaling Law
@@ -37,11 +58,6 @@ Factors of model performance (cross-entropy loss) are currently considered as **
 - **KM scaling law** (openai, 2020)
 - **Chinchilla scaling law** (deepmind, 2022)  
 以上两者进行了不同角度的对照实验 (*原文待看*)，其中不同的观点包括算力固定时，如何对*N*和*D*进行scaling能更好提高模型表现，前者认为*N*占比更重，而后者认为均等。*注：仅从cross-entropy loss角度分析，不包括in-context learning能力。*  
-
-#### Parallel Training
-训练框架：
-- DeepSpeed
-- Megatron-LM
 
 
 ## Inference
