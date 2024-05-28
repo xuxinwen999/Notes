@@ -4,6 +4,19 @@
 - ***docker build***: Builds a Docker image from a Dockerfile.
 - ***docker ps***: Lists running containers.
 - ***docker images***: Lists Docker images on the host.
+- ***docker exec***: Execute a command in a running container, ex. 
+    ```docker command
+    # -i以interactive方式
+    # 进入mycontainer，打开bash
+    # 可以使用vim之类的工具编辑scripts，注意这类变动是临时的，container重启动后不会保留这类改动
+    docker exec -it mycontainer /bin/bash
+- ***docker cp***: Copy Files from the Container to local
+    ``` docker command
+    docker cp <container_id>:/path/to/file /local/path/to/save
+- ***docker rm***: stop container并没有移除它，The container still exists and retains its name, which prevents the creation of a new container with the same name.
+    ```docker command
+    # Force removes a running or stopped container
+    docker rm -f <container_name>
 
 
 ## From project dir to container
