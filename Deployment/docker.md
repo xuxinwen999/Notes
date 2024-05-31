@@ -4,7 +4,8 @@
 - ***docker build***: Builds a Docker image from a Dockerfile.
 - ***docker ps***: Lists running containers.
 - ***docker images***: Lists Docker images on the host.
-- ***docker exec***: Execute a command in a running container, ex. 
+- ***docker image inspect [image_name]***: check the info of image.
+- ***docker exec***: Execute a command in a running container, (ctrl+p然后ctrl+q退出)，ex. 
     ```docker command
     # -i以interactive方式
     # 进入mycontainer，打开bash
@@ -29,6 +30,10 @@
     # 允许指定多个ports，ex. docker run -d -p 8000:8000 -p 9000:9000 myproject
     # -d 是指以detached模式运行（后端运行），以便继续使用terminal
     docker run -d -p 8000:8000 myproject
+
+
+## 调试
+- mount
 
 
 ## Dockerfile
