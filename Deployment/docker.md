@@ -30,10 +30,18 @@
     # 允许指定多个ports，ex. docker run -d -p 8000:8000 -p 9000:9000 myproject
     # -d 是指以detached模式运行（后端运行），以便继续使用terminal
     docker run -d -p 8000:8000 myproject
+- container使用host GPU
+    <br>默认情况下，container runtime无法获取gpu, docker19以后可以通过在docker run时指定***--gpus all***参数向container添加主机gpu, cuda版本由image指定，但是要[保证主机的nvidia driver版本支持cuda版本](https://stackoverflow.com/questions/63960319/does-it-matter-if-the-version-of-cuda-on-docker-is-different-from-the-version-of)
 
 
 ## 调试
-- mount
+- debug无法启动的镜像：
+    ```cmd
+    # 进入镜像内部
+    docker run -it --entrypoint /bin/bash <image_name>
+    
+    # 检查镜像
+    docker inspect <image_name>
 
 
 ## Dockerfile

@@ -41,13 +41,15 @@
 - Communication Buffers (Model Parallelism)
 - Pipeline Buffers (Pipeline Parallelism)
 
+
 ## Parallel Training
 #### 并行策略
 - Data Parallelism：each GPU holds a copy of the entire model and processes different batches of data.
 - Model Parallelism： different parts of the model are distributed across multiple GPUs. This requires ***efficient communication*** between GPUs.
 - Pipeline Parallelism: dividing the model into stages, with each stage assigned to a different GPU. This also requires managing activations between stages.
 
-####训练框架：
+
+#### 训练框架：
 - DeepSpeed
 - Megatron-LM
 
