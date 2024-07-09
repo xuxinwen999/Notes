@@ -4,6 +4,20 @@
 - ***docker build***: Builds a Docker image from a Dockerfile.
 - ***docker ps***: Lists running containers.
 - ***docker images***: Lists Docker images on the host.
+- ***docker image inspect [image_name]***: check the info of image.
+- ***docker exec***: Execute a command in a running container, (ctrl+p然后ctrl+q退出)，ex. 
+    ```docker command
+    # -i以interactive方式
+    # 进入mycontainer，打开bash
+    # 可以使用vim之类的工具编辑scripts，注意这类变动是临时的，container重启动后不会保留这类改动
+    docker exec -it mycontainer /bin/bash
+- ***docker cp***: Copy Files from the Container to local
+    ``` docker command
+    docker cp <container_id>:/path/to/file /local/path/to/save
+- ***docker rm***: stop container并没有移除它，The container still exists and retains its name, which prevents the creation of a new container with the same name.
+    ```docker command
+    # Force removes a running or stopped container
+    docker rm -f <container_name>
 
 
 ## From project dir to container
@@ -16,6 +30,18 @@
     # 允许指定多个ports，ex. docker run -d -p 8000:8000 -p 9000:9000 myproject
     # -d 是指以detached模式运行（后端运行），以便继续使用terminal
     docker run -d -p 8000:8000 myproject
+- container使用host GPU
+    <br>默认情况下，container runtime无法获取gpu, docker19以后可以通过在docker run时指定***--gpus all***参数向container添加主机gpu, cuda版本由image指定，但是要[保证主机的nvidia driver版本支持cuda版本](https://stackoverflow.com/questions/63960319/does-it-matter-if-the-version-of-cuda-on-docker-is-different-from-the-version-of)
+
+
+## 调试
+- debug无法启动的镜像：
+    ```cmd
+    # 进入镜像内部
+    docker run -it --entrypoint /bin/bash <image_name>
+    
+    # 检查镜像
+    docker inspect <image_name>
 
 
 ## Dockerfile
