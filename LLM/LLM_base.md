@@ -1,5 +1,5 @@
-## 数据处理
-#### 通用语料
+# 数据处理
+### 通用语料
 数据质量提升至关重要，甚至在scalingl law的研究中，增加dataset size的前提是保证数据质量。
 1. crawled pages处理：提取url中的文本信息，丢弃其中无用的广告、标题、目录等，工具如trafilatura等
 2. 语言过滤：使用 tool(ex. fastText) 训练一个语言识别模型，过滤目标语言得分低于threshold的docs
@@ -10,11 +10,20 @@
     - 广告？
 4. Deduplication
 
-#### 领域语料
+### 领域语料
 
 
-## Embedding Model
-#### Training
+# Model Architecture Base
+### Trannsformer
+- ***位置编码要点***：
+    * 连续实数空间；
+    * absolute value不敏感，编码函数随position, dim增长应该是有界的；
+    * 外推容易：如果是固定数量的learned positional emb, 只能编码有限长度的句子；
+    * 
+
+
+# Embedding Model
+### Training
 - 模型结构：enc+dec、
 - 预训练：BERT pretraining paradigm
 - finetune: 
@@ -30,7 +39,7 @@
 - 语料：title-body, title-abstract, instruction-output
 
 
-## GPU requirements analysis
+# GPU requirements analysis
 模型参数量单位B和显存单位GB之间存在的联系：1 GB = 1 B bytes, 而相关参数存储类型fp32 (4 bytes) / fp16 (2bytes)。<br>
 分析显存占用主要从以下方面：
 - Parameters：主要看参数数据类型，参考上述方式计算；(inference)
@@ -41,51 +50,51 @@
 - Communication Buffers (Model Parallelism)
 - Pipeline Buffers (Pipeline Parallelism)
 
-## Parallel Training
-#### 并行策略
+# Parallel Training
+### 并行策略
 - Data Parallelism：each GPU holds a copy of the entire model and processes different batches of data.
 - Model Parallelism： different parts of the model are distributed across multiple GPUs. This requires ***efficient communication*** between GPUs.
 - Pipeline Parallelism: dividing the model into stages, with each stage assigned to a different GPU. This also requires managing activations between stages.
 
-####训练框架：
+###训练框架：
 - DeepSpeed
 - Megatron-LM
 
 
-## Training Tricks
-#### Scaling Law
+# Training Tricks
+### Scaling Law
 Factors of model performance (cross-entropy loss) are currently considered as **{model size (N), dataset size (D), amount of training compute}**. 已发表的scaling laws:
 - **KM scaling law** (openai, 2020)
 - **Chinchilla scaling law** (deepmind, 2022)  
 以上两者进行了不同角度的对照实验 (*原文待看*)，其中不同的观点包括算力固定时，如何对*N*和*D*进行scaling能更好提高模型表现，前者认为*N*占比更重，而后者认为均等。*注：仅从cross-entropy loss角度分析，不包括in-context learning能力。*  
 
 
-## Inference
-#### 参数说明
+# Inference
+### 参数说明
 - **temperature**: temperature相当于对logits进行scale: logits=logits/temperature。 当temperature较高时，会更平均地分配概率给各个token，这导致生成的文本更具随机性和多样性；temperature较低接近0时，会倾向于选择概率最高的token，从而使生成的文本更加确定和集中。注：temperature=1时表示不使用此方式。
 
 
-## Emergent Ability
+# Emergent Ability
 " The abilities that are not present in small models but arise in large models ", 目前主要关注的通用大模型的涌现能力包括：
 1. In-context learning
 2. Instruction following
 3. Step-by-step reasoning
 
 
-## 评估
+# 评估
 ### Knowledge评估
 在测试LLM对pure knowledge的掌握时，测试形式为多选项选择题，应警惕"educated guesses"问题。
 
 predictable scaling (GPT-4)：
 
 ### Benchmark
-#### superCLUE-OPEN
+##### superCLUE-OPEN
 目前暂未开放数据集，社区评测模型结果基本基于OPEN数据（当然，据相关性分析报告，OPEN与OPT具有较高一致性，不过根据描述，测试点应该不同）：SuperCLUE-Open是一个多轮开放域中文基准，包括600个高质量多轮问题。这里面的问题用于评估中文大模型对话能力和遵循指令的能力。 里面包括一些常用的使用场景和一些挑战性的指令用于区分不同的模型。它考察模型的十大能力， 包括：语义理解与抽取，闲聊，上下文对话，角色扮演，知识与百科，生成与创作，代码，逻辑与推理，计算，代码和安全。每个子能力六十道题目，每个题目包括两轮问题。 
 
-#### CMMLU
+##### CMMLU
 CMMLU是一个综合性的中文评估基准，专门用于评估语言模型在中文语境下的知识和推理能力。CMMLU涵盖了从基础学科到高级专业水平的67个主题，包括12k选择题。它包括：需要计算和推理的自然科学，需要知识的人文科学和社会科学,以及需要生活常识的中国驾驶规则等。此外，CMMLU中的许多任务具有中国特定的答案，可能在其他地区或语言中并不普遍适用。（可作为通用能力的补充）
 
-#### Xiezhi
+##### Xiezhi
 全集总共约250k多选问答题，其中包括170k从各阶段考试题生成的问答多选题和80k从academc surveys中提取生成并回答+分类的多选问答题，涵盖的遥感相关学科分类如下：
 - "地球物理学": ["固体地球物理学", "空间物理学"],
 - "地理学": ["自然地理学","人文地理学","地图学与地理信息系统"],
@@ -106,7 +115,7 @@ CMMLU是一个综合性的中文评估基准，专门用于评估语言模型在
 
 
 
-## Domain specific LLM
+# Domain specific LLM
 - LLM掌握领域的factual knowledge应该包括以下能力：
     * 记住facts
     * 甄别基于facts的true/false statements
