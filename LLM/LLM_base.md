@@ -43,7 +43,12 @@
     * 位置编码的点积是无向的：也就是token t 和 t-k、t+k两个位置的点积相等，仅与k有关。
     * 进入attention计算后（乘上Q/K权重矩阵后），位置编码点积关于相对位置k的0轴对称性被破坏 -> 这种编码方式不能在transformer-based的模型中正确表达相对位置关系。
 - ***相对位置编码***：由于上述第四条性质，后续产生了一系列相对位置编码的工作，主要体现在计算context token ${t}_{m}$ 和 target token ${t}_{n}$ 的attention score时，引入一些trainable或functional的adding terms，以引入${t}_{m}$ 和 ${t}_{n}$ 的相对位置信息, 核心idea还是遵循adding PE的想法。
-
+- ***RoPE***：主要特点：
+    * 在${W}_{q}$和${W}_{k}$后再融入位置信息；
+    * 位置信息以乘上旋转矩阵的方式参与attention，而不是（[Transformer](https://arxiv.org/pdf/1706.03762)）中在embedding上加上等维位置编码；
+    * 乘旋转矩阵可以在每个block和layer上保证位置信息的有效性，而Transformer的位置编码方式却可能导致位置信息随网络加深而衰减；
+    * 高维旋转（dim维)其实是在$dim/2$个子空间上做多次二维旋转，每个子空间有独立的基础旋转角度，而这个基础旋转角度的定义决定了不同位置$t$的位置信息区别在低维空间更明显，也就是越靠前的维度差异越大。
+    * 更多性质分析见[位置编码视频](https://www.bilibili.com/video/BV1Xi421R7ev/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=cf2e31ac835b0b0ad63aebcc493a3ebf)
 
 ## GPU requirements analysis
 模型参数量单位B和显存单位GB之间存在的联系：1 GB = 1 B bytes, 而相关参数存储类型fp32 (4 bytes) / fp16 (2bytes)。<br>
