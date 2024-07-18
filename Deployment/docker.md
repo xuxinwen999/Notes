@@ -42,6 +42,7 @@
     
     # 检查镜像
     docker inspect <image_name>
+- 挂载路径修改：container内部和local的挂载（bind），the modification on both path will sync on each side.
 
 
 ## Dockerfile
