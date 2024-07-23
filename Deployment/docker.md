@@ -45,6 +45,12 @@
 - 挂载路径修改：container内部和local的挂载（bind），the modification on both path will sync on each side.
 
 
+## docker network
+[官网介绍](https://docs.docker.com/engine/tutorials/networkingcontainers/)<br>
+**Key Points**:
+- 同一网络下的pods相互访问ip：**http://pod_name:port**，其中port应该是pod中的端口，而不是映射到主机上的端口
+
+
 ## Dockerfile
 A Dockerfile is simply a text file named Dockerfile ***(without any extension)*** that contains the instructions for building a Docker image.
 - Build under the root path of project
@@ -96,3 +102,4 @@ A Docker Compose YAML file defines services (containers), networks, volumes, and
 
 ## Docker image
 Docker image files are ***not stored in a human-readable format*** like text files. Instead, they are binary files that contain all the files, libraries, dependencies, and configurations needed to run a Docker container.When you build a Docker image using a Dockerfile, Docker takes the instructions in the Dockerfile and creates layers. ***Each layer represents a step*** in the image build process, such as installing packages, copying files, or running commands. These layers are combined to form the final Docker image.
+- 镜像导入导出：[tutorial](https://www.hangge.com/blog/cache/detail_2411.html)
