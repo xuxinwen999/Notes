@@ -10,8 +10,13 @@
 
 ### Function Calling & Tools
 * Function Signature: 即function描述，includes the function name, parameters, and the expected return type. This is usually defined in a structured format (e.g., JSON).
-* LLM FT (Training) goals：
+* LLM FT (Training) goals towards function calling：
     - Recognize when a query matches a function’s use case；
     - Generate a call to the appropriate function with the correct parameters；
     - Integrates API results into its response.
 * Error Handling: Managing errors or unexpected results from function calls.
+* **QA**：
+    - 多个function的signature会大大增加prompt长度，如何管理？
+    - 如何考虑对API说明pre-process, 如int -> number
+    - structure outputs: 填充complex multiple hierarchy json, 复杂func和拆解的简单func组合在效果上有什么区别？如下图：<br>
+    <img src="resources\agent-0.png" width="60%">
