@@ -1,3 +1,13 @@
+## Python环境
+- ***issue***: -bash: /mnt/glusterfs/rscb/nlp/xxw/envs/qwen2/bin/ninja: /mnt/glusterfs101/rscb/nlp/xxw/envs/qwen/bin/python: bad interpreter: No such file or directory<br>
+    ***solution***: 
+    ```cli
+    vim /mnt/glusterfs/rscb/nlp/xxw/envs/env_name/bin/pkg_name
+    # 修改注释第一行
+- **国内镜像源**
+    * 阿里：https://mirrors.aliyun.com/pypi/simple/
+
+
 ## Jupyter Notebook
 * Reload Modules:
     - re-execute import不生效问题：首次import modules后，the changes may not be reflected because Python's import system caches the imported modules，除非restart kernel。使用iPython的[autoreload magic方法](https://ipython.readthedocs.io/en/stable/config/extensions/autoreload.html)可以解决这个问题：
