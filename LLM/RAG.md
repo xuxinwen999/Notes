@@ -23,6 +23,10 @@
     - By default, the **metadata** is injected into the text for both **embedding** and **LLM model calls**
     - [Customize metadata](https://docs.llamaindex.ai/en/stable/module_guides/loading/documents_and_nodes/usage_documents/#customizing-metadata-format): 可以限定embedding和llm模型接收的metadata字段、定制metadata和chunk_text join的模板
 
+
+## 思考
+* 未来portable llm applications是否可以向提炼强推理的small size llm（舍弃一些memory参数） + 外挂RAG的paradigm发展？
+
 ### ReRanker
 bge-reranker的介绍是在pretrained的bert模型上做监督微调 (text-paris数据，label is binary that indicates the similarity of the pair)
 
