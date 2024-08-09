@@ -6,7 +6,12 @@
 ## Knowledge Process & Storage
 
 
-## Retrival
+## Retrieval
+<img src="resources\retrievers.PNG" width="80%">
+### Vector Retrieval
+* Dense vector: normal emb 模型对分片文本的整段编码（[cls]），编码含义与emb模型训练任务相关；
+* Sparse vector: 表示为高维的position-value pair {position: value}
+
 
 
 ## Generation
