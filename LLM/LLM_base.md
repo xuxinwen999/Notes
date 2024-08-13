@@ -15,6 +15,12 @@
 ### 领域语料
 
 
+## [Tokenization](https://huggingface.co/docs/transformers/en/tokenizer_summary)
+* Space and punctuation / rule-based tokenization (SpaCy/Moses): 生成vocab太大，比如 Transformer XL的vocab size高达200+K，而transformer结构模型的vocab size一般应在[50K以下，单语言更小。](https://huggingface.co/docs/transformers/en/tokenizer_summary)
+* BPE：从一个base vocab出发，训练过程迭代合并frequecy高的co-occurrence sub-string，终止条件为vocab size（hyperparameter）。其中，base vocab生成方法：
+    - Unicode
+
+
 ## Embedding
 ### Token Embedding
 * **Embedding Model**
