@@ -20,6 +20,11 @@
         from configs import DB_BGEM3
 
 
+## API
+### FastAPI
+FastAPI是最流行的基于python的web API框架, 优点见[官网](https://fastapi.tiangolo.com/)。接口方法支持[http的定义方法](https://www.w3schools.com/tags/ref_httpmethods.asp)
+
+
 ## Pydantic
 Pydantic是一个主要应用于数据parsing & validation 的包，BaseModel是其中一个primary class, You can create data models by ***subclassing BaseModel*** and defining attributes with type annotations:
     ```python
