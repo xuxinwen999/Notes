@@ -48,6 +48,10 @@
 * 挂载路径修改：container内部和local的挂载（bind），the modification on both path will sync on each side.
 
 
+## Volume Mount
+container内部代码挂载host后，runtime时修改host可以立即映射到container内部（而非image上），并且"docker stop" -> "docker start" 方式restart后仍然保存了修改，也就是run最新修改的版本。但是container如果被"docker rm"，所有container build后的修改也随之丢失，"docker run"是基于image构建时的代码创建container。
+
+
 ## docker network
 [官网介绍](https://docs.docker.com/engine/tutorials/networkingcontainers/)<br>
 **Key Points**:

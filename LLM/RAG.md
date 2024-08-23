@@ -4,6 +4,14 @@
 
 
 ## Knowledge Process & Storage
+### [Chunking](https://github.com/FullStackRetrieval-com/RetrievalTutorials/blob/main/tutorials/LevelsOfTextSplitting/5_Levels_Of_Text_Splitting.ipynb)
+* **Character Splitting**: overlap应该主要应用于这个分割方式，以追溯word/phrase的完整性，后面基于保留句段完整性和语义的分割方式不应该采用fixed size overlap, 这样反而使chunk头尾不完整。
+* **Recursive Character Text Splitting**: recurse对象应该是seperator list, 每次pop一个seperator分割文本，再检查每个chunk size，对超出size的chunk采用下一个seperator继续切分。
+* **Code/HTML/Markdown**: 扩展一些适配script type的seperator，仍然是char-based seperator划分方法。
+* **Semantic Chunking**：
+    - 先完成sentence-based splitting
+    - 设定一个buffer window (size n, 表示这个windown中包含2n+1个上述的sentences, 即当前句为中心句，前后各组合n句), 对每个window计算cos similarity, 窗口每次滑动一个sentence再次计算cos similarity，得到每个中心句的cosine表示。（以window组合计算中心句的cos可以降低噪声，链接原文提到的）。
+    - 基于percentile选定划分点，这样做是站在全篇doc的语义基础上进行相对划分，更合理。
 
 
 ## Retrieval
