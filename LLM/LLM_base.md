@@ -73,6 +73,18 @@
 * Pipeline Buffers (Pipeline Parallelism)
 
 
+## Model Architecture
+* Attention进化：
+    1. multi-head attention. 为了reduce memory bandwidth from loading
+        keys and values, 对多个 K,v 做mean pool实现MQA: <br>
+    <img src="resources\k_mean_pool.png" width="60%">
+    2. multi-query attention. 但是这样对larger model不公平，为了keep the same proportional
+        decrease in bandwidth and capacity as model size increases，对 attention 进行分组操作，query 被分为 N 组(超参)，每个组共享一个 Key 和 Value 矩阵实现GQA.
+    3. GQA <br>
+    <img src="resources\attention进化.png" width="80%">
+
+
+
 ## Training
 ### 并行策略
 * Data Parallelism：each GPU holds a copy of the entire model and processes different batches of data.
@@ -94,7 +106,10 @@ Factors of model performance (cross-entropy loss) are currently considered as **
 * **temperature**: temperature相当于对logits进行scale: logits=logits/temperature。 当temperature较高时，会更平均地分配概率给各个token，这导致生成的文本更具随机性和多样性；temperature较低接近0时，会倾向于选择概率最高的token，从而使生成的文本更加确定和集中。注：temperature=1时表示不使用此方式。
 
 
-## Emergent Ability
+##  LLM Capabilities
+<img src="resources\llm_capab.png" width="100%">
+
+#### Emergent Ability
 " The abilities that are not present in small models but arise in large models ", 目前主要关注的通用大模型的涌现能力包括：
 1. In-context learning
 2. Instruction following
