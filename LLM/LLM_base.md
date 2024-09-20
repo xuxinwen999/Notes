@@ -16,13 +16,13 @@
 
 
 ## [Tokenization](https://huggingface.co/docs/transformers/en/tokenizer_summary)
-* Space and punctuation / rule-based tokenization (SpaCy/Moses): 生成vocab太大，比如 Transformer XL的vocab size高达200+K，而transformer结构模型的vocab size一般应在[50K以下，单语言更小。](https://huggingface.co/docs/transformers/en/tokenizer_summary)
-* BPE: 从一个base vocab出发，训练过程迭代合并frequecy高的co-occurrence sub-string，终止条件为vocab size（hyperparameter）。其中，base vocab生成方法：
+* **Space and punctuation / rule-based tokenization (SpaCy/Moses)**: 生成vocab太大，比如 Transformer XL的vocab size高达200+K，而transformer结构模型的vocab size一般应在[50K以下，单语言更小。](https://huggingface.co/docs/transformers/en/tokenizer_summary)
+* **BPE**: 从一个base vocab出发，训练过程迭代合并frequecy高的co-occurrence sub-string，终止条件为vocab size（hyperparameter）。其中，base vocab生成方法：
     - Unicode character: 字符太多导致base vocab太大，并且合并生成的string也会很多；训练过程费时；要考虑不同语言的字符合并问题等等；
     - Byte-base: GPT-2提出使用，先将text char用UTF-8编码，再在bytes基础上进行BPE merging.
-* WordPiece: 核心和BPE一样是greedy merge, criterion有区别，BPE是基于统计的frequency, 而WordPiece是基于min negative likelihood(loss)。（两者导致的resulting vocab区别待看）
-* Unigram Model: 从一个超大的sub-string vocab（通常包括training dataset所有的str）开始，每次迭代去掉一定比例使loss增长最少的str，终止条件仍然是vocab size
-* SentencePiece: google一个开源项目，集成BPE和Unigram两种训练方法，增加了一下tricks(如space替换方案)以处理不同语言和scripts
+* **WordPiece**: 核心和BPE一样是greedy merge, criterion有区别，BPE是基于统计的frequency, 而WordPiece是基于min negative likelihood(loss)。（两者导致的resulting vocab区别待看）
+* **Unigram Model**: 从一个超大的sub-string vocab（通常包括training dataset所有的str）开始，每次迭代去掉一定比例使loss增长最少的str，终止条件仍然是vocab size
+* **SentencePiece**: google一个开源项目，集成BPE和Unigram两种训练方法，增加了一下tricks(如space替换方案)以处理不同语言和scripts
 
 
 ## Embedding

@@ -22,8 +22,12 @@
 <img src="resources\retrievers.PNG" width="80%">
 
 ### Vector Retrieval
-* Dense vector: normal emb 模型对分片文本的整段编码（[cls] or mean-pooling），编码含义与emb模型训练任务相关；
-* Sparse vector: 表示为不定维度的position-value pair {position: value}，维度和匹配到vocab的关键词相关；
+#### 索引字段
+    * Dense vector: normal emb 模型对分片文本的整段编码（[cls] or mean-pooling），编码含义与emb模型训练任务相关；
+    * Sparse vector: 表示为不定维度的position-value pair {position: value}，维度和匹配到vocab的关键词相关；
+#### 向量检索方法
+（待整理）[REF: 以阿里云OpenSearch为例谈向量检索技术选型 - <em>阿里云</em>开发者的文章 - 知乎
+](https://zhuanlan.zhihu.com/p/657531099)
 
 ### Key-word / Full-text Retrieval
 * **ElasticSearch BM25**: Best Match 25(25没有实际意义，可以看作版本名)，改进TF-IDF算法，增加了几个可调节的参数，使其在应用中更具灵活性和实用性，并对计算进行更合理的定义和限制。下图是输入query Q与文档D的bm25分数计算解析：<br>
