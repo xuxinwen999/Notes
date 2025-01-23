@@ -59,7 +59,8 @@
         3) 乘旋转矩阵可以在每个block和layer上保证位置信息的有效性，而Transformer的位置编码方式却可能导致位置信息随网络加深而衰减；
         4) 高维旋转（dim维）其实是在$dim/2$个子空间上做多次二维旋转，每个子空间有独立的基础旋转角度，而这个基础旋转角度的定义决定了不同位置$t$的位置信息区别在低维空间更明显，也就是越靠前的维度差异越大。
         <br> 更多性质分析见[位置编码视频](https://www.bilibili.com/video/BV1Xi421R7ev/?spm_id_from=333.788.top_right_bar_window_history.content.click&vd_source=cf2e31ac835b0b0ad63aebcc493a3ebf)
-
+### Why adding?
+<img src="resources\emb_adding.png" width="60%">
 
 ## GPU requirements analysis
 模型参数量单位B和显存单位GB之间存在的联系：1 GB = 1 B bytes, 而相关参数存储类型fp32 (4 bytes) / fp16 (2bytes)。<br>
