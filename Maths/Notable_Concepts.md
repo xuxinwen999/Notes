@@ -1,0 +1,3 @@
+## Gaussion-distribution related
+* In real life, many phenomena exhibit characteristics that can be modeled using the Gaussian distribution, especially in situations where multiple independent factors contribute to a given outcome. One of the key reasons Gaussian distributions appear so often in real life is due to the **Central Limit Theorem**. (chagpt)
+* **Central Limit Theorem**: under appropriate conditions, the distribution of a normalized version of the sample mean converges to a standard normal distribution. This holds even if the original variables themselves are not normally distributed. (wikipedia)

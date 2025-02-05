@@ -87,6 +87,10 @@
 
 
 ## Training
+### 语料变长序列的batch training处理
+* **Padding & Masking:** often token_id=0 or a special token like [PAD], then mask the padded tokens so that they do not contribute to the model's loss or computations (important for attention mechanisms, where padded tokens should be ignored). 在padding阶段需要一个batch max_length, 可以人为设置(可能需要truncate过长的句子)，或者采用dynamic, 即采用每个bacth中最长的序列length.
+* **Bucketing Sequences:** 先把序列按长度分组以保证每组序列长度相差不大，可以有效减少padding浪费
+* **拼接序列替代batch训练:** 用序列并行替代数据并行减少无效计算: [知乎讨论原帖](https://zhuanlan.zhihu.com/p/700491837)
 ### 并行策略
 * Data Parallelism：each GPU holds a copy of the entire model and processes different batches of data.
 * Model Parallelism： different parts of the model are distributed across multiple GPUs. This requires ***efficient communication*** between GPUs.
@@ -100,6 +104,7 @@ Factors of model performance (cross-entropy loss) are currently considered as **
     - **KM scaling law** (openai, 2020)
     - **Chinchilla scaling law** (deepmind, 2022)  
 以上两者进行了不同角度的对照实验 (*原文待看*)，其中不同的观点包括算力固定时，如何对*N*和*D*进行scaling能更好提高模型表现，前者认为*N*占比更重，而后者认为均等。*注：仅从cross-entropy loss角度分析，不包括in-context learning能力。*  
+* Given a fixed computing budget, training a larger model for fewer steps is better than training a smaller model for more steps （**?**） ([来源: HF](https://huggingface.co/blog/moe))
 
 
 ## Inference
