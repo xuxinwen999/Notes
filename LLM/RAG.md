@@ -2,6 +2,11 @@
 
 <img src="resources\simple_rag_workflow.png" width="80%">
 
+## TODO LIST
+* 需要学习的板块总结：https://mp.weixin.qq.com/s/g7qE2pOifIMj21W3qJFzNQ
+* graphRAG:
+    1. https://neo4j.com/blog/genai/graphrag-manifesto/
+
 
 ## Knowledge Process & Storage
 ### [Chunking](https://github.com/FullStackRetrieval-com/RetrievalTutorials/blob/main/tutorials/LevelsOfTextSplitting/5_Levels_Of_Text_Splitting.ipynb)
@@ -14,26 +19,31 @@
     - 基于percentile选定划分点，这样做是站在全篇doc的语义基础上进行相对划分，更合理。
 
 
-## Retrieval
+## Information Retrieval
+The **goal** of an IR system is not just to **return a list of documents** but to ensure that **the most relevant ones appear at the top** of the results.
+### Statistical Methods
+Based on term frequency and document relevance, these methods are efficient and effective for keyword-based search but often struggle with understanding the deeper context or semantics of the text.
+* TF-IDF
+* BM25
+    1. **ElasticSearch BM25**: Best Match 25(25没有实际意义，可以看作版本名)，改进TF-IDF算法，增加了几个可调节的参数，使其在应用中更具灵活性和实用性，并对计算进行更合理的定义和限制。下图是输入query Q与文档D的bm25分数计算解析：<br>
+<img src="resources\es_bm25.png" width="60%"><br>
+ES为文档创建json，包含content, author, title等field，可以在field上指定创建index：对text创建Inverted index是指用分词器分词->创建term-doc index<br>
+([ES简介](https://mp.weixin.qq.com/s/wlh2AHpNLrz9dHxPw9UrkQ))
+
+### Semantic Modeling (Vector Retrieval)
+#### 索引字段
+* Dense vector: normal emb 模型对分片文本的整段编码（[cls] or mean-pooling），编码含义与emb模型训练任务相关；
+* Sparse vector: 表示为不定维度的position-value pair {position: value}，维度和匹配到vocab的关键词相关；
+#### 向量检索方法
+（待整理）[REF: 以阿里云OpenSearch为例谈向量检索技术选型 - <em>阿里云</em>开发者的文章 - 知乎](https://zhuanlan.zhihu.com/p/657531099)
 ### retrieve efficacy eval
 * Precision: 尽量避免返回无关内容
 * Recall: 尽量召回更多相关内容
 * Ranking: 召回内容相关性排序
 <img src="resources\retrievers.PNG" width="80%">
 
-### Vector Retrieval
-#### 索引字段
-    * Dense vector: normal emb 模型对分片文本的整段编码（[cls] or mean-pooling），编码含义与emb模型训练任务相关；
-    * Sparse vector: 表示为不定维度的position-value pair {position: value}，维度和匹配到vocab的关键词相关；
-#### 向量检索方法
-（待整理）[REF: 以阿里云OpenSearch为例谈向量检索技术选型 - <em>阿里云</em>开发者的文章 - 知乎
-](https://zhuanlan.zhihu.com/p/657531099)
 
-### Key-word / Full-text Retrieval
-* **ElasticSearch BM25**: Best Match 25(25没有实际意义，可以看作版本名)，改进TF-IDF算法，增加了几个可调节的参数，使其在应用中更具灵活性和实用性，并对计算进行更合理的定义和限制。下图是输入query Q与文档D的bm25分数计算解析：<br>
-<img src="resources\es_bm25.png" width="60%"><br>
-ES为文档创建json，包含content, author, title等field，可以在field上指定创建index：对text创建Inverted index是指用分词器分词->创建term-doc index<br>
-[ES简介](https://mp.weixin.qq.com/s/wlh2AHpNLrz9dHxPw9UrkQ)
+
 
 
 

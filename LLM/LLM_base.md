@@ -110,7 +110,9 @@ Factors of model performance (cross-entropy loss) are currently considered as **
 ## Inference
 ### 参数说明
 * **temperature**: temperature相当于对logits进行scale: logits=logits/temperature。 当temperature较高时，会更平均地分配概率给各个token，这导致生成的文本更具随机性和多样性；temperature较低接近0时，会倾向于选择概率最高的token，从而使生成的文本更加确定和集中。注：temperature=1时表示不使用此方式。
-
+* **top-p**: It sets a threshold probability and selects the top tokens whose cumulative probability exceeds the threshold.
+* **top-k**: It limits the model’s output to the top-k most probable tokens at each step.
+* **batch inference**: When batching, you send multiple inputs through the model at once and get multiple outputs. 对单个序列只能in-sequence, 因为generation不像train那样有groud-truth可用。这种seq-batch work的原因主要是：1）节省了streaming the model's weights into registers的时间，一次load可用于多个input requests；2）充分利用sever算力.
 
 ##  LLM Capabilities
 <img src="resources\llm_capab.png" width="100%">
