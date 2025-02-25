@@ -1,5 +1,5 @@
-# RAG
-
+# RAG: textual version
+<img src="resources\retrievers.PNG" width="80%">
 <img src="resources\simple_rag_workflow.png" width="80%">
 
 ## TODO LIST
@@ -40,7 +40,6 @@ ES为文档创建json，包含content, author, title等field，可以在field上
 * Precision: 尽量避免返回无关内容
 * Recall: 尽量召回更多相关内容
 * Ranking: 召回内容相关性排序
-<img src="resources\retrievers.PNG" width="80%">
 
 
 
