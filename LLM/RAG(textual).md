@@ -37,9 +37,9 @@ ES为文档创建json，包含content, author, title等field，可以在field上
 #### 向量检索方法
 （待整理）[REF: 以阿里云OpenSearch为例谈向量检索技术选型 - <em>阿里云</em>开发者的文章 - 知乎](https://zhuanlan.zhihu.com/p/657531099)
 ### retrieve efficacy eval
-* Precision: 尽量避免返回无关内容
-* Recall: 尽量召回更多相关内容
-* Ranking: 召回内容相关性排序
+从以下角度考虑评价召回效率：1）Precision: 尽量避免返回无关内容；2）Recall: 尽量召回更多相关内容；3）Ranking: 召回内容相关性排序，目前主流采用的metrics:
+* **Hit Rate**: 即命中率，一般指的是我们预期的召回文本（真实值）在召回结果的前 k 个文本中会出现，也就是 Recall@k 时，能得到预期文本。一般，Hit Rate越高，就说明召回算法效果越好。
+* **MRR(Mean Reciprocal Rank)**: 是一种常见的评估检索效果的指标。MRR 是衡量系统在一系列查询中返回相关文档或信息的平均排名的逆数的平均值。例如，如果一个系统对第一个查询的正确答案排在第二位，对第二个查询的正确答案排在第一位，则 MRR 为 (1/2 + 1/1) / 2。
 
 
 
@@ -49,7 +49,14 @@ ES为文档创建json，包含content, author, title等field，可以在field上
 
 
 ## Generation
-
+### Response Evaluation
+对最终generated response，可以从以下角度评价：
+1. **Correctness**: Whether the generated answer matches that of the reference answer given the query (requires labels).
+2. **Semantic Similarity**: Whether the predicted answer is semantically similar to the reference answer (requires labels).
+3. **Faithfulness**: Evaluates if the answer is faithful to the retrieved contexts (in other words, whether if there's hallucination).
+4. **Guideline Adherence**: Whether the predicted answer adheres to specific guidelines.
+#### Conduct
+* **LlamaIndex** offers LLM-based evaluation modules to measure the quality of results. This uses a "gold" LLM (e.g. GPT-4) to decide whether the predicted answer is correct in a variety of ways.
 
 ## Tools and Frameworks
 
