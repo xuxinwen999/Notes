@@ -1,4 +1,6 @@
 # NLP基础
+* [NLP主流模型的前世今生简介](https://mp.weixin.qq.com/s/BxpWFwXFbpur_gTuzSEsSA)
+
 
 ## Metrics
 * Perplexity: it quantifies how well the model predicts the next word in a sequence. Lower perplexity indicates that the model is more confident and better at predicting the text. Commonly used in evaluating the performance of language models during training.
