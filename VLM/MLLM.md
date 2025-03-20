@@ -7,7 +7,16 @@
 3. image captioning
 4. image-text retrieve
 5. description / classification
-6. segmentation
+6. Segmentation
+    * Semantic Seg:
+        - pixel-classify seg task.
+        - 对同一个class的多个objects，视作同一个entity, 不单独区分
+    * Instance Seg: 区分出不同的countable objects
+    * Panoptic: 结合以上，完成所有seg
+    <img src="./resources/seg_cats.png" alt="data sample" style="width: 50%; display: block; margin: auto;"></a>
+    * Pixel classification vs. mask classification:
+        - Per-pixel classification: per-pixel classifification assumes a static number (number of classes) of outputs, 无法为同一语义的不同objects分配不同id，因而无法完成instance seg.
+        - Generate mask + mask classfication: Model predicts a class-specific binary mask, which indicates which pixels belong to the object instance and which do not, for each object instance in an image, instead of classifying each pixel independently.
 7. visual generation and editing
 8. Visual Grounding: aims to locate the most relevant object or region in an image, based on a natural language query.
 
