@@ -1,20 +1,14 @@
 # import numpy as np
-def moveZeroes(nums) -> None:
-    """
-    Do not return anything, modify nums in-place instead.
-    """
-    maxloops = len(nums)
-    i = 0
-    while i<=maxloops:
-        if nums[i]==0:
-            # print(nums[i])
-            nums.pop(i)
-            nums.append(0)
-        else:
-            i += 1
-            # print(i, nums)
-    return nums
+def lengthOfLongestSubstring(s: str) -> int:
+    dic, res, i = {}, 0, -1
+    for j in range(len(s)):
+        if s[j] in dic:
+            i = max(dic[s[j]], i) # 更新左指针 i
+        dic[s[j]] = j # 哈希表记录
+        res = max(res, j - i) # 更新结果
+        print(i, j, res, dic)
+    return res
 
-nums = [0,0,1]
-res = moveZeroes(nums)
-print(res)
+s = "abcabcbb"
+res = lengthOfLongestSubstring(s)
+# print(res)
