@@ -22,6 +22,10 @@
         from configs import DB_BGEM3
 
 
+## Debug工具
+* **vscode debug**: cannot use VS Code's full-featured debugger for *.sh* files, bash scripts do not support interactive breakpoints in the same way.
+
+
 ## Thread vs. Process
 A thread is the smallest unit of execution within a process. A process is an independent execution unit with its own memory space and resources.
 *  **Memory and Resource Sharing**: Threads share the memory and resources of the parent process that can straightforward communicate to each other. Each process has its own independent memory space which makes it more robust from crashes.
